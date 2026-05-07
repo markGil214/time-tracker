@@ -16,8 +16,21 @@ class Cors implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        // Allow from any origin (since the backend is on localhost, this is generally safe for local-only use)
-        header("Access-Control-Allow-Origin: *");
+        $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+        $allowedOrigins = [
+            'https://time-tracker-three-eta.vercel.app',
+            'http://localhost:5173', // For local dev
+        ];
+
+        // If the origin is from an ngrok domain, allow it too
+        if (str_contains($origin, 'ngrok-free.app')) {
+            $allowedOrigins[] = $origin;
+        }
+
+        if (in_array($origin, $allowedOrigins)) {
+            header("Access-Control-Allow-Origin: " . $origin);
+        }
+
         header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization, Set-Cookie");
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         header("Access-Control-Allow-Credentials: true");
