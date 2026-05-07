@@ -23,21 +23,21 @@ class Cors implements FilterInterface
         ];
 
         // If the origin is from an ngrok domain, allow it too
-        if (str_contains($origin, 'ngrok-free.app')) {
+        if (strpos($origin, 'ngrok-free.app') !== false) {
             $allowedOrigins[] = $origin;
         }
 
         if (in_array($origin, $allowedOrigins)) {
             header("Access-Control-Allow-Origin: " . $origin);
+            header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization, Set-Cookie");
+            header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+            header("Access-Control-Allow-Credentials: true");
         }
 
-        header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization, Set-Cookie");
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-        header("Access-Control-Allow-Credentials: true");
-
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == "OPTIONS") {
-            die();
+        if ($request->getMethod() === 'options') {
+            $response = service('response');
+            $response->setStatusCode(200);
+            return $response->send();
         }
     }
 
