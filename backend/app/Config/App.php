@@ -305,7 +305,7 @@ class App extends BaseConfig
 	 *
        * @var string 'Lax'|'None'|'Strict'
 	 */
-	public $cookieSameSite = 'Lax';
+	public $cookieSameSite = 'None';
 
 	/**
 	 * --------------------------------------------------------------------------
