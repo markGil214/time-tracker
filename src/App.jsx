@@ -309,6 +309,7 @@ function validateAuthFields(username, password) {
 }
 
 function App() {
+  console.log('API Config:', { AUTH_API_BASE, ENTRIES_API_BASE });
   const initialAuthUser = SHOULD_USE_REMOTE_AUTH ? null : getLocalSessionUser()
 
   const [authUser, setAuthUser] = useState(initialAuthUser)

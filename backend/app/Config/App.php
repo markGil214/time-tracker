@@ -275,7 +275,7 @@ class App extends BaseConfig
 	 *
 	 * @var boolean
 	 */
-	public $cookieSecure = false;
+	public $cookieSecure = true;
 
 	/**
 	 * --------------------------------------------------------------------------
@@ -286,7 +286,7 @@ class App extends BaseConfig
 	 *
 	 * @var boolean
 	 */
-	public $cookieHTTPOnly = false;
+	public $cookieHTTPOnly = true;
 
 	/**
 	 * --------------------------------------------------------------------------
